@@ -1,0 +1,36 @@
+// Below is some initial sample data to get you started.
+
+use("PersonalProject"); // This is our example database. Make sure you don't call your database "example_db".
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+// db.profiles.drop();
+
+// Insert a few documents into the profiles collection.
+db.surveys.insertMany([  
+   {
+  "_id": "1",
+  "title": "Household Survey 2022",
+  "question_1": "How many members in your household?",
+  "question_2": "What is your main source of income?",
+  "question_3": "How many individuals work in your household",
+  "question_4": "What does your daily diet look like?"
+},
+    {
+  "_id": "2",
+  "title": "Conflict Qualitative Questionnaire",
+  "question_1": "Are there any resource based conflicts in your area?",
+  "question_2": "Did the project have any impact on these localised disputes?",
+  "question_3": "Did the project address the conflict concerns of women?",
+  "question_4": "Did the project increase access to resources in the community?"
+},
+    {
+  "_id": "3",
+  "title": "Crop Yield Assessment",
+  "question_1": "What is your role?",
+  "question_2": "How many acres do you farm or manage?",
+  "question_3": "What crop species do you plant?",
+  "question_4": "What is the biggest challenge you faced this season?"
+},
+   
+]);

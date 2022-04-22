@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from "react";
+import BasicTable from "./components/table";
 
 // SERVICES THAT CALL OUR API ENDPOINTS
-import { getAllProfiles } from "./services/profileService";
+import { getAllSurveys } from "./services/profileService";
 
 function App() {
-  const [profiles, setProfiles] = useState(null);
+  const [surveys, setSurveys] = useState(null);
 
   useEffect(() => {
-    async function getProfiles() {
-      if (!profiles) {
-        const response = await getAllProfiles();
-        setProfiles(response);
+    // Implement the request to get addresses from database (getsurveys is just an example)
+    async function getSurveys() {
+      if (!surveys) {
+        const response = await getAllSurveys();
+        setSurveys(response);
       }
     }
+    // const fakesurveys = [
+    //   { _id: "1", title: "Household Survey 2022", question_1: "How many members in your household?", question_2: "What is your main source of income?", question_3: "How many individuals work in your household", question_4: "What does your daily diet look like?"},
+    //   // { _id: "2", title: "Conflict Qualitative Questionnaire", question_1: "Are there any resource based conflicts in your area?", question_2: "Did the project have any impact on these localised disputes?", question_3: "Did the project address the conflict concerns of women?", question_4:"Did the project increase access to resources in the community?"},
+    //   // { _id: "3", title: "Crop Yield Assessment", question_1: "What is your role?", question_2: "How many acres do you farm or manage?", question_3: "What crop species do you plant?", question_4: "What is the biggest challenge you faced this season?"},
+    // ];
 
-    getProfiles();
-  }, [profiles]);
+    // setSurveys(fakesurveys);
+    getSurveys();
+  }, [surveys]);
 
-  const renderProfile = (user) => {
+  const renderSurveys = (survey) => {
+    const {_id,title,question_1,question_2,question_3,question_4} = survey
     return (
-      <li key={user._id}>
+      <li key={_id}>
         <h3>
-          {`${user.first_name} 
-          ${user.last_name}`}
+          {`${title} 
+          `}
         </h3>
-        <p>{user.location}</p>
+        <p>{question_1}</p>
+        <p>{question_2}</p>
+        <p>{question_3}</p>
+        <p>{question_4}</p>
       </li>
     );
   };
@@ -32,10 +44,11 @@ function App() {
   return (
     <div>
       <ul>
-        {profiles && profiles.length > 0 ? (
-          profiles.map((profile) => renderProfile(profile))
+        {surveys && surveys.length > 0 ? (
+          surveys.map((profile) => renderSurveys(profile))
         ) : (
-          <p>No profiles found</p>
+          <p>Faisa was here</p>
+            // <BasicTable></BasicTable>
         )}
       </ul>
     </div>
