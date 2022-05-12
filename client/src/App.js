@@ -1,11 +1,48 @@
-import React, { useState, useEffect } from "react";
-import BasicTable from "./components/table";
+import React, { useState, useEffect, Component } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Home from "./components/home";
+import Signup from "./components/signup/Signup";
+import Login from "./components/login/Login";
+import Dashboard from "./components/dashboard/Dashboard";
+import Navbar from "./components/dashboard/Navbar";
+import Sidebar from "./components/dashboard/Sidebar";
+import SurveyOne from "./components/surveyDisplay/surveyone";
+
 
 // SERVICES THAT CALL OUR API ENDPOINTS
 import { getAllSurveys } from "./services/profileService";
 
+ //4th
+
+
+//  class Routes extends Component {
+//   render() {
+
+  // function App () {
+  //   return (
+  //     <div>
+  //       <h1>Hi</h1>;
+  //       <BrowserRouter basename="/React">
+  //         <Switch>
+  //           <Route path="/signup" component={Signup} />
+  //           <Route path="/login" component={Login} />
+  //           <Route path="/dashboard" component={Dashboard} />
+  //           <Route exact path="/" component={Home} />
+  //         </Switch>
+  //       </BrowserRouter>
+  //     </div>
+  //   );
+  // }
+
+
 function App() {
   const [surveys, setSurveys] = useState(null);
+  
+
+
+  //user login info
 
   useEffect(() => {
     // Implement the request to get addresses from database (getsurveys is just an example)
@@ -15,44 +52,77 @@ function App() {
         setSurveys(response);
       }
     }
-    // const fakesurveys = [
-    //   { _id: "1", title: "Household Survey 2022", question_1: "How many members in your household?", question_2: "What is your main source of income?", question_3: "How many individuals work in your household", question_4: "What does your daily diet look like?"},
-    //   // { _id: "2", title: "Conflict Qualitative Questionnaire", question_1: "Are there any resource based conflicts in your area?", question_2: "Did the project have any impact on these localised disputes?", question_3: "Did the project address the conflict concerns of women?", question_4:"Did the project increase access to resources in the community?"},
-    //   // { _id: "3", title: "Crop Yield Assessment", question_1: "What is your role?", question_2: "How many acres do you farm or manage?", question_3: "What crop species do you plant?", question_4: "What is the biggest challenge you faced this season?"},
-    // ];
-
-    // setSurveys(fakesurveys);
+    
     getSurveys();
   }, [surveys]);
+
+ 
 
   const renderSurveys = (survey) => {
     const {_id,title,question_1,question_2,question_3,question_4} = survey
     return (
-      <li key={_id}>
-        <h3>
+      <div key={_id}>
+        {/* <h3>
           {`${title} 
           `}
-        </h3>
-        <p>{question_1}</p>
+        </h3> */}
+        <></>
+        {/* <p>{question_1}</p>
         <p>{question_2}</p>
         <p>{question_3}</p>
-        <p>{question_4}</p>
-      </li>
+        <p>{question_4}</p> */}
+
+        <BrowserRouter>
+          <Switch>
+
+            <Route path="/surveys" render={props =>
+            <div>
+              {/* <Navbar /> */}
+              <SurveyOne />
+            </div>
+            }/>
+
+            <Route path="/login" render={props =>
+            <div>
+              <Login />
+              <Navbar />
+            </div>
+            } />
+
+            <Route path="/dashboard" component={Navbar}/>
+            <Route exact path="/" component={Signup}/>
+          </Switch>
+        </BrowserRouter>
+      </div>
+      
     );
   };
 
   return (
-    <div>
-      <ul>
+    <>
+      <div>
         {surveys && surveys.length > 0 ? (
           surveys.map((profile) => renderSurveys(profile))
         ) : (
-          <p>Faisa was here</p>
-            // <BasicTable></BasicTable>
+          <>
+          <BrowserRouter>
+          <Switch>
+            {/* <Redirect from="/" to="/Login" exact />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/dashboard" component={Navbar} />
+            <Route exact path="/" component={Home} /> */}
+          </Switch>
+        </BrowserRouter>
+        </>
+  
         )}
-      </ul>
-    </div>
+      </div>
+      </>
+    
   );
 }
 
+
 export default App;
+// export default Routes;

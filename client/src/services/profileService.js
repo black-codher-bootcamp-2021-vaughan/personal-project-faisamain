@@ -5,8 +5,22 @@ import axios from "axios";
 const getAllSurveys = async () => {
   const response = await axios.get(`/api/surveys`);
 
+
+
   return response.data || [];
 };
 
+
+const getAll= async () => {
+  const response = await axios.get(`/`);
+
+
+
+  return response.data || [];
+};
+
+
 // All of the endpoints in this file can be exported below
 export { getAllSurveys };
+
+export {getAll};
