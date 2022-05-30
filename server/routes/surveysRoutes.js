@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const Profile = mongoose.model("profiles");
+const survey= mongoose.model("surveys");
 
-const profileRoutes = (app) => {
-  app.get(`/api/profile`, async (req, res) => {
-    const profiles = await Profile.find();
+const surveysRoutes = (app) => {
+  app.get(`/api/surveys`, async (req, res) => {
+    const surveys = await survey.find();
 
-    return res.status(200).send(profiles);
+    return res.status(200).send(surveys);
   });
+
 
   app.post(`/api/profile`, async (req, res) => {
     const profile = await Profile.create(req.body);
@@ -40,4 +41,4 @@ const profileRoutes = (app) => {
   });
 };
 
-module.exports = profileRoutes;
+module.exports = surveysRoutes;
